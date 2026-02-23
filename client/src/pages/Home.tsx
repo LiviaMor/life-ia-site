@@ -64,7 +64,7 @@ export default function Home() {
         <div className="container relative z-10 py-20">
           <div className="max-w-2xl">
             <h1 className="display-lg text-white mb-6 leading-tight">
-              Onde a Tecnologia Encontra a <span className="text-accent">Cura</span>
+              LIFE IA - <span className="text-accent">Regulação Autônoma</span>
             </h1>
             <p className="text-lg text-gray-200 mb-8 leading-relaxed">
               LIFE IA: Transformando a complexidade da regulação hospitalar em agilidade para salvar vidas através de interoperabilidade inteligente. Desenvolvido para o SUS-Goiás com IA aberta e 100% em conformidade com LGPD.
