@@ -461,8 +461,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-8 text-center text-sm text-white/60">
-            <p>&copy; 2026 LIFE IA. Desenvolvido por Livia Moreira Rocha & Sebastião Relson Reis da Luz.</p>
-            <p className="mt-2">Prêmio Goiás Aberto para IA – GO.IA - Chamada Pública FAPEG nº 34/2025</p>
+            <p>&copy; 2026 LIFE IA. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
