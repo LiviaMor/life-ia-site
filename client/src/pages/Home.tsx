@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Brain, Database, Zap, BarChart3, Lock, Users } from "lucide-react";
+import { ArrowRight, Brain, Database, Zap, BarChart3, Lock, Users, Filter, Layers, MapPin } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -7,10 +7,17 @@ import { useState } from "react";
  * Design: Modernismo Corporativo com Ênfase em Dados
  * Paleta: Azul profundo (#0F3A7D) + Ciano (#00D9FF) + Cinza (#2D3E50)
  * Tipografia: Poppins (títulos) + Inter (corpo)
+ * 
+ * Baseado na documentação oficial:
+ * - README.md: Visão geral e arquitetura
+ * - PIPELINE_HOSPITAIS_GOIAS_IMPLEMENTADO.md: Mapeamento de hospitais
+ * - PIPELINE_RAG_FOCADO_IMPLEMENTADO.md: Lógica de peneira
+ * - MS_INGESTAO_IMPLEMENTADO.md: Ingestão de dados em tempo real
  */
 
 export default function Home() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [expandedArea, setExpandedArea] = useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -29,6 +36,9 @@ export default function Home() {
             </a>
             <a href="#solucao" className="text-sm hover:text-accent transition">
               Como Funciona
+            </a>
+            <a href="#funcionalidades" className="text-sm hover:text-accent transition">
+              Funcionalidades
             </a>
             <a href="#diferenciais" className="text-sm hover:text-accent transition">
               Diferenciais
@@ -57,7 +67,7 @@ export default function Home() {
               Onde a Tecnologia Encontra a <span className="text-accent">Cura</span>
             </h1>
             <p className="text-lg text-gray-200 mb-8 leading-relaxed">
-              LIFE IA: Transformando a complexidade da regulação hospitalar em agilidade para salvar vidas através de interoperabilidade inteligente.
+              LIFE IA: Transformando a complexidade da regulação hospitalar em agilidade para salvar vidas através de interoperabilidade inteligente. Desenvolvido para o SUS-Goiás com IA aberta e 100% em conformidade com LGPD.
             </p>
             <div className="flex gap-4">
               <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
@@ -75,9 +85,9 @@ export default function Home() {
       <section id="problema" className="py-24 bg-white">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="display-md text-primary mb-6">O Problema</h2>
+            <h2 className="display-md text-primary mb-6">O Problema Real</h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              "A regulação de vagas não pode ser um 'buraco negro'. Hoje, a latência da informação e dados desestruturados custam tempo que o paciente não tem."
+              A regulação de vagas não pode ser um 'buraco negro'. Hoje, a latência da informação e dados desestruturados custam tempo que o paciente não tem.
             </p>
           </div>
 
@@ -86,17 +96,17 @@ export default function Home() {
               {
                 icon: "⏱️",
                 title: "Latência Crítica",
-                desc: "Informações atrasadas custam vidas. Cada minuto importa.",
+                desc: "Informações atrasadas custam vidas. Cada minuto importa na regulação de urgências.",
               },
               {
                 icon: "🗂️",
-                title: "Dados Desorganizados",
-                desc: "Sistemas legados não conversam entre si. Silos de informação.",
+                title: "Dados Fragmentados",
+                desc: "Sistemas legados não conversam. Silos de informação entre hospitais, SES e gestores.",
               },
               {
                 icon: "❌",
-                title: "Decisões Manuais",
-                desc: "Processamento humano lento e propenso a erros em volume alto.",
+                title: "Decisões Manuais Lentas",
+                desc: "Processamento humano lento e propenso a erros. Exemplo: dor lombar encaminhada para HUGO (trauma).",
               },
             ].map((item, i) => (
               <div
@@ -112,34 +122,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Como Funciona - Pipeline */}
+      {/* Como Funciona - Pipeline Inteligente */}
       <section id="solucao" className="py-24 bg-gray-50">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="display-md text-primary mb-4">Como o LIFE IA Funciona</h2>
+            <h2 className="display-md text-primary mb-4">O Pipeline Inteligente</h2>
             <p className="text-lg text-muted-foreground">
-              O Pipeline Inteligente: Ingestão → Inteligência → Síntese
+              Três camadas de IA trabalhando em harmonia: Ingestão → Inteligência → Síntese
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
             {[
               {
                 layer: "Ingestão",
                 tech: "Tesseract OCR",
-                func: "Digitaliza laudos e guias físicas, eliminando o papel e o erro humano na entrada de dados.",
+                weight: "30%",
+                func: "Digitaliza laudos e guias físicas em tempo real, eliminando papel e erro humano na entrada de dados.",
                 icon: Database,
               },
               {
                 layer: "Inteligência",
-                tech: "BioBERT",
-                func: "Especializada em NLP clínico, interpreta o contexto médico e extrai entidades com precisão científica.",
+                tech: "BioBERT v1.1",
+                weight: "60%",
+                func: "Especializada em NLP clínico, interpreta contexto médico e extrai entidades clínicas com precisão científica.",
                 icon: Brain,
               },
               {
                 layer: "Síntese",
-                tech: "Llama (LLM)",
-                func: "Consolida dados complexos em resumos executivos para apoio à decisão do médico regulador.",
+                tech: "Llama 3 (LLM)",
+                weight: "10%",
+                func: "Consolida dados complexos em recomendações executivas para apoio à decisão do médico regulador.",
                 icon: Zap,
               },
             ].map((item, i) => {
@@ -164,23 +177,131 @@ export default function Home() {
                       <h3 className="text-lg font-bold text-primary">{item.layer}</h3>
                     </div>
                   </div>
-                  <p className="text-sm font-mono text-accent mb-3">{item.tech}</p>
+                  <div className="flex items-center gap-2 mb-3">
+                    <p className="text-sm font-mono text-accent">{item.tech}</p>
+                    <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded">Peso: {item.weight}</span>
+                  </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.func}</p>
                 </div>
               );
             })}
           </div>
 
-          <div className="flex justify-center">
-            <div className="text-center text-sm text-muted-foreground">
-              <p>Resultado: Decisões em tempo real, com confiança científica</p>
+          {/* Peneira de Decisão */}
+          <div className="bg-white rounded-lg border-2 border-primary/20 p-12">
+            <h3 className="text-2xl font-bold text-primary mb-8 text-center">Lógica de Peneira: Como a IA Escolhe o Hospital</h3>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  step: 1,
+                  icon: Filter,
+                  title: "Peneira 1: Especialidade",
+                  desc: "Filtra hospitais que têm a especialidade necessária. Exemplo: Histerectomia remove HDT (Doenças Tropicais) e HUGO (Trauma).",
+                },
+                {
+                  step: 2,
+                  icon: Layers,
+                  title: "Peneira 2: Complexidade",
+                  desc: "Baseado no CID, prioriza hospitais adequados. Trauma grave (S06) → HUGO/HUGOL. Ortopedia eletiva (M54) → remove HUGO.",
+                },
+                {
+                  step: 3,
+                  icon: MapPin,
+                  title: "Peneira 3: Localidade",
+                  desc: "Prioriza hospitais regionais para não saturar capital. Formosa → Hospital de Formosa. Anápolis → HEAPA.",
+                },
+              ].map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <div key={i} className="relative">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-accent/20">
+                          <Icon className="h-6 w-6 text-accent" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg font-semibold text-primary mb-2">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
+                    </div>
+                    {i < 2 && (
+                      <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2">
+                        <ArrowRight className="w-8 h-8 text-accent/30" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Funcionalidades Principais */}
+      <section id="funcionalidades" className="py-24 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="display-md text-primary mb-4">5 Áreas de Operação</h2>
+            <p className="text-lg text-muted-foreground">
+              LIFE IA cobre todo o fluxo de regulação hospitalar
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                title: "Dashboard Público",
+                desc: "Monitoramento em tempo real da ocupação hospitalar. Tendências de ocupação (ALTA, QUEDA, ESTÁVEL) com previsão de saturação.",
+                icon: "📊",
+              },
+              {
+                title: "Área Hospitalar",
+                desc: "Solicitação de regulação com upload de documentos (laudos, guias). Análise automática por IA com OCR + BioBERT.",
+                icon: "🏥",
+              },
+              {
+                title: "Área de Regulação",
+                desc: "Fila de pacientes com sugestões inteligentes de hospital. Médico regulador toma decisão final com justificativa da IA.",
+                icon: "⚕️",
+              },
+              {
+                title: "Área de Transferência",
+                desc: "Acompanhamento de ambulâncias e transferências em tempo real. Integração com dados de localização e ocupação.",
+                icon: "🚑",
+              },
+              {
+                title: "Área de Auditoria",
+                desc: "Registro de altas, métricas de desempenho e logs de decisões. 100% rastreável para conformidade LGPD.",
+                icon: "📋",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="border border-border rounded-lg overflow-hidden hover:border-accent/50 transition"
+              >
+                <button
+                  onClick={() => setExpandedArea(expandedArea === i ? null : i)}
+                  className="w-full p-6 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition"
+                >
+                  <div className="flex items-center gap-4 text-left">
+                    <span className="text-3xl">{item.icon}</span>
+                    <div>
+                      <h3 className="font-bold text-lg text-primary">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </div>
+                  <ArrowRight className={`w-5 h-5 text-accent transition-transform ${expandedArea === i ? 'rotate-90' : ''}`} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Diferenciais Estratégicos */}
-      <section id="diferenciais" className="py-24 bg-white">
+      <section id="diferenciais" className="py-24 bg-gray-50">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="display-md text-primary mb-4">Diferenciais Estratégicos</h2>
@@ -194,22 +315,22 @@ export default function Home() {
               {
                 icon: Lock,
                 title: "Interoperabilidade Semântica",
-                desc: "Sistemas que finalmente falam a mesma língua. Integração perfeita com infraestrutura existente do SUS.",
+                desc: "Sistemas que finalmente falam a mesma língua. Integração perfeita com infraestrutura existente do SUS-Goiás.",
               },
               {
                 icon: Users,
                 title: "Burocracia Cognitiva Zero",
-                desc: "Deixe a IA processar o volume; deixe os humanos tomarem as decisões. Foco no que importa.",
+                desc: "Deixe a IA processar o volume; deixe os humanos tomarem as decisões. Foco no que importa: salvar vidas.",
               },
               {
                 icon: BarChart3,
                 title: "Foco no SUS",
-                desc: "Solução desenhada para a escala e os desafios reais da saúde pública brasileira.",
+                desc: "Solução desenhada para a escala e os desafios reais da saúde pública brasileira. Hierarquia SUS-Goiás implementada.",
               },
             ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={i} className="p-8 bg-gray-50 rounded-lg border border-border hover:border-accent/50 transition">
+                <div key={i} className="p-8 bg-white rounded-lg border border-border hover:border-accent/50 transition">
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-white" />
                   </div>
@@ -218,6 +339,63 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Conformidade */}
+          <div className="mt-16 p-8 bg-white rounded-lg border-2 border-accent/20">
+            <h3 className="text-xl font-bold text-primary mb-6 text-center">Conformidade & Segurança</h3>
+            <div className="grid md:grid-cols-3 gap-8 text-center">
+              <div>
+                <p className="text-3xl mb-2">✅</p>
+                <h4 className="font-semibold text-primary mb-2">LGPD Compliant</h4>
+                <p className="text-sm text-muted-foreground">Dados pessoais anonimizados em consultas públicas</p>
+              </div>
+              <div>
+                <p className="text-3xl mb-2">🔓</p>
+                <h4 className="font-semibold text-primary mb-2">IA 100% Aberta</h4>
+                <p className="text-sm text-muted-foreground">Modelos open-source com documentação de treinamento</p>
+              </div>
+              <div>
+                <p className="text-3xl mb-2">📝</p>
+                <h4 className="font-semibold text-primary mb-2">Auditável</h4>
+                <p className="text-sm text-muted-foreground">Logs de todas as decisões da IA para rastreabilidade</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stack Técnico */}
+      <section className="py-24 bg-white">
+        <div className="container">
+          <div className="text-center mb-16">
+            <h2 className="display-md text-primary mb-4">Stack Tecnológico</h2>
+            <p className="text-lg text-muted-foreground">
+              Construído com tecnologias modernas e escaláveis
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gray-50 p-8 rounded-lg border border-border">
+              <h3 className="font-bold text-primary mb-4">Backend & IA</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li>🐍 Python 3.11+ com FastAPI</li>
+                <li>🧬 BioBERT v1.1 (NLP Clínico)</li>
+                <li>🦙 Llama 3 (LLM)</li>
+                <li>📄 Tesseract OCR</li>
+                <li>🗄️ PostgreSQL 15+</li>
+              </ul>
+            </div>
+            <div className="bg-gray-50 p-8 rounded-lg border border-border">
+              <h3 className="font-bold text-primary mb-4">Frontend & DevOps</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                <li>⚛️ React Native + Expo</li>
+                <li>🔧 TypeScript 5.0+</li>
+                <li>🐳 Docker & Docker Compose</li>
+                <li>📊 Dashboard em tempo real</li>
+                <li>☁️ Arquitetura de microserviços</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -229,14 +407,14 @@ export default function Home() {
             Pronto para Transformar a Regulação Hospitalar?
           </h2>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            Junte-se às instituições de saúde que já estão economizando tempo e salvando vidas com LIFE IA.
+            Junte-se às instituições de saúde que já estão economizando tempo e salvando vidas com LIFE IA. Desenvolvido para Goiás, escalável para o Brasil.
           </p>
           <div className="flex gap-4 justify-center">
             <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
               Agende uma Demo <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              Saiba Mais
+              Ver Documentação
             </Button>
           </div>
         </div>
@@ -254,22 +432,22 @@ export default function Home() {
                 <span className="font-bold">LIFE IA</span>
               </div>
               <p className="text-sm text-white/60">
-                Transformando a regulação hospitalar através de inteligência artificial.
+                Regulação Autônoma para o SUS-Goiás. Desenvolvido para Goiás Aberto para IA (FAPEG).
               </p>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Produto</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Como Funciona</a></li>
-                <li><a href="#" className="hover:text-white transition">Diferenciais</a></li>
-                <li><a href="#" className="hover:text-white transition">Preços</a></li>
+                <li><a href="#solucao" className="hover:text-white transition">Como Funciona</a></li>
+                <li><a href="#funcionalidades" className="hover:text-white transition">Funcionalidades</a></li>
+                <li><a href="#diferenciais" className="hover:text-white transition">Diferenciais</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Empresa</h4>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition">Sobre</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
+                <li><a href="https://github.com/LiviaMor/regulacao-ms" className="hover:text-white transition">GitHub</a></li>
                 <li><a href="#" className="hover:text-white transition">Contato</a></li>
               </ul>
             </div>
@@ -277,13 +455,14 @@ export default function Home() {
               <h4 className="font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition">Privacidade</a></li>
-                <li><a href="#" className="hover:text-white transition">Termos</a></li>
                 <li><a href="#" className="hover:text-white transition">LGPD</a></li>
+                <li><a href="#" className="hover:text-white transition">Licença MIT</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-white/10 pt-8 text-center text-sm text-white/60">
-            <p>&copy; 2026 LIFE IA. Todos os direitos reservados.</p>
+            <p>&copy; 2026 LIFE IA. Desenvolvido por Livia Moreira Rocha & Sebastião Relson Reis da Luz.</p>
+            <p className="mt-2">Prêmio Goiás Aberto para IA – GO.IA - Chamada Pública FAPEG nº 34/2025</p>
           </div>
         </div>
       </footer>
