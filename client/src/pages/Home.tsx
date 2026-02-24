@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Brain, Database, Zap, BarChart3, Lock, Users, Filter, Layers, MapPin } from "lucide-react";
+import { ArrowRight, Brain, Database, Zap, BarChart3, Lock, Users, Filter, Layers, MapPin, Clock, FolderOpen, XCircle, LayoutDashboard, Building2, Stethoscope, Ambulance, ClipboardList, ShieldCheck, Unlock, FileText } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -100,30 +100,35 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "⏱️",
+                icon: Clock,
                 title: "Latência Crítica",
                 desc: "Informações atrasadas custam vidas. Cada minuto importa na regulação de urgências.",
               },
               {
-                icon: "🗂️",
+                icon: FolderOpen,
                 title: "Dados Fragmentados",
                 desc: "Sistemas legados não conversam. Silos de informação entre hospitais, SES e gestores.",
               },
               {
-                icon: "❌",
+                icon: XCircle,
                 title: "Decisões Manuais Lentas",
                 desc: "Processamento humano lento e propenso a erros. Exemplo: dor lombar encaminhada para HUGO (trauma).",
               },
-            ].map((item, i) => (
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
               <div
                 key={i}
                 className="p-8 bg-gray-50 rounded-lg border border-border hover:border-accent/50 transition"
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-accent" />
+                </div>
                 <h3 className="font-semibold text-lg mb-3 text-primary">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -260,29 +265,31 @@ export default function Home() {
               {
                 title: "Dashboard Público",
                 desc: "Monitoramento em tempo real da ocupação hospitalar. Tendências de ocupação (ALTA, QUEDA, ESTÁVEL) com previsão de saturação.",
-                icon: "📊",
+                icon: LayoutDashboard,
               },
               {
                 title: "Área Hospitalar",
                 desc: "Solicitação de regulação com upload de documentos (laudos, guias). Análise automática por IA com OCR + BioBERT.",
-                icon: "🏥",
+                icon: Building2,
               },
               {
                 title: "Área de Regulação",
                 desc: "Fila de pacientes com sugestões inteligentes de hospital. Médico regulador toma decisão final com justificativa da IA.",
-                icon: "⚕️",
+                icon: Stethoscope,
               },
               {
                 title: "Área de Transferência",
                 desc: "Acompanhamento de ambulâncias e transferências em tempo real. Integração com dados de localização e ocupação.",
-                icon: "🚑",
+                icon: Ambulance,
               },
               {
                 title: "Área de Auditoria",
                 desc: "Registro de altas, métricas de desempenho e logs de decisões. 100% rastreável para conformidade LGPD.",
-                icon: "📋",
+                icon: ClipboardList,
               },
-            ].map((item, i) => (
+            ].map((item, i) => {
+              const Icon = item.icon;
+              return (
               <div
                 key={i}
                 className="border border-border rounded-lg overflow-hidden hover:border-accent/50 transition"
@@ -292,7 +299,9 @@ export default function Home() {
                   className="w-full p-6 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition"
                 >
                   <div className="flex items-center gap-4 text-left">
-                    <span className="text-3xl">{item.icon}</span>
+                    <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-5 h-5 text-accent" />
+                    </div>
                     <div>
                       <h3 className="font-bold text-lg text-primary">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.desc}</p>
@@ -301,7 +310,8 @@ export default function Home() {
                   <ArrowRight className={`w-5 h-5 text-accent transition-transform ${expandedArea === i ? 'rotate-90' : ''}`} />
                 </button>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -352,17 +362,23 @@ export default function Home() {
             <h3 className="text-xl font-bold text-primary mb-6 text-center">Conformidade & Segurança</h3>
             <div className="grid md:grid-cols-3 gap-8 text-center">
               <div>
-                <p className="text-3xl mb-2">✅</p>
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <ShieldCheck className="w-5 h-5 text-accent" />
+                </div>
                 <h4 className="font-semibold text-primary mb-2">LGPD Compliant</h4>
                 <p className="text-sm text-muted-foreground">Dados pessoais anonimizados em consultas públicas</p>
               </div>
               <div>
-                <p className="text-3xl mb-2">🔓</p>
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Unlock className="w-5 h-5 text-accent" />
+                </div>
                 <h4 className="font-semibold text-primary mb-2">IA 100% Aberta</h4>
                 <p className="text-sm text-muted-foreground">Modelos open-source com documentação de treinamento</p>
               </div>
               <div>
-                <p className="text-3xl mb-2">📝</p>
+                <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <FileText className="w-5 h-5 text-accent" />
+                </div>
                 <h4 className="font-semibold text-primary mb-2">Auditável</h4>
                 <p className="text-sm text-muted-foreground">Logs de todas as decisões da IA para rastreabilidade</p>
               </div>
@@ -385,21 +401,21 @@ export default function Home() {
             <div className="bg-gray-50 p-8 rounded-lg border border-border">
               <h3 className="font-bold text-primary mb-4">Backend & IA</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li>🐍 Python 3.11+ com FastAPI</li>
-                <li>🧬 BioBERT v1.1 (NLP Clínico)</li>
-                <li>🦙 Llama 3 (LLM)</li>
-                <li>📄 Tesseract OCR</li>
-                <li>🗄️ PostgreSQL 15+</li>
+                <li>Python 3.11+ com FastAPI</li>
+                <li>BioBERT v1.1 (NLP Clínico)</li>
+                <li>Llama 3 (LLM)</li>
+                <li>Tesseract OCR</li>
+                <li>PostgreSQL 15+</li>
               </ul>
             </div>
             <div className="bg-gray-50 p-8 rounded-lg border border-border">
               <h3 className="font-bold text-primary mb-4">Frontend & DevOps</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li>⚛️ React Native + Expo</li>
-                <li>🔧 TypeScript 5.0+</li>
-                <li>🐳 Docker & Docker Compose</li>
-                <li>📊 Dashboard em tempo real</li>
-                <li>☁️ Arquitetura de microserviços</li>
+                <li>React Native + Expo</li>
+                <li>TypeScript 5.0+</li>
+                <li>Docker & Docker Compose</li>
+                <li>Dashboard em tempo real</li>
+                <li>Arquitetura de microserviços</li>
               </ul>
             </div>
           </div>
