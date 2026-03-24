@@ -2,51 +2,48 @@ import fs from "node:fs";
 import path from "node:path";
 
 const docsDir = "docs";
-const publicDir = path.join(docsDir, "public");
 
-function copyDir(srcDir, destDir) {
-  fs.mkdirSync(destDir, { recursive: true });
-  for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
-    const srcPath = path.join(srcDir, entry.name);
-    const destPath = path.join(destDir, entry.name);
-    if (entry.isDirectory()) {
-      copyDir(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  }
+// Check both possible build output locations
+let srcDir = path.join("docs", "public");
+if (!fs.existsSync(srcDir)) {
+  srcDir = path.join("dist", "public");
 }
-
-// Vite builds into docs/public/ — we need to lift everything to docs/ root
-if (!fs.existsSync(publicDir)) {
-  console.error("Error: docs/public not found. Run vite build first.");
+if (!fs.existsSync(srcDir)) {
+  console.error("Error: build output not found. Run vite build first.");
   process.exit(1);
 }
 
-// Copy docs/public/* to docs/ (overwriting)
-for (const entry of fs.readdirSync(publicDir, { withFileTypes: true })) {
-  const srcPath = path.join(publicDir, entry.name);
-  const destPath = path.join(docsDir, entry.name);
-  if (entry.isDirectory()) {
-    copyDir(srcPath, destPath);
-  } else {
-    fs.copyFileSync(srcPath, destPath);
+function copyDir(src, dest) {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const s = path.join(src, entry.name);
+    const d = path.join(dest, entry.name);
+    entry.isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
   }
 }
 
-// Remove docs/public/ (no longer needed)
-fs.rmSync(publicDir, { recursive: true, force: true });
+// Copy build output to docs/
+for (const entry of fs.readdirSync(srcDir, { withFileTypes: true })) {
+  const s = path.join(srcDir, entry.name);
+  const d = path.join(docsDir, entry.name);
+  entry.isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
+}
 
-// Create 404.html for SPA routing on GitHub Pages
+// Remove source if it was inside docs/
+if (srcDir === path.join("docs", "public")) {
+  fs.rmSync(srcDir, { recursive: true, force: true });
+}
+
+// 404.html for SPA routing
 const indexPath = path.join(docsDir, "index.html");
 if (fs.existsSync(indexPath)) {
   fs.copyFileSync(indexPath, path.join(docsDir, "404.html"));
 }
 
-// Ensure .nojekyll exists
+// .nojekyll
 fs.writeFileSync(path.join(docsDir, ".nojekyll"), "");
 
-// Remove debug collector (not needed in production)
+// Remove debug collector
 const manusDir = path.join(docsDir, "__manus__");
 if (fs.existsSync(manusDir)) {
   fs.rmSync(manusDir, { recursive: true, force: true });

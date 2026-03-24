@@ -43,7 +43,7 @@ export default function Home() {
             <a href="#diferenciais" className="text-sm hover:text-accent transition">
               Diferenciais
             </a>
-              <a href="https://wa.me/5562936180369?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/5562998389886?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-primary hover:bg-primary/90">
                   Agende uma Demo
                 </Button>
@@ -77,7 +77,7 @@ export default function Home() {
                   Conheça a Solução <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </a>
-              <a href="https://wa.me/5562936180369?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer" className="inline-flex">
+              <a href="https://wa.me/5562998389886?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer" className="inline-flex">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                   Agende uma Demo
                 </Button>
@@ -432,7 +432,7 @@ export default function Home() {
             Junte-se às instituições de saúde que já estão economizando tempo e salvando vidas com LIFE IA. Desenvolvido para Goiás, escalável para o Brasil.
           </p>
           <div className="flex gap-4 justify-center">
-            <a href="https://wa.me/5562936180369?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5562998389886?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demo%20do%20LIFE%20IA" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
                 Agende uma Demo <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
